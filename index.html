@@ -13,32 +13,44 @@
 
 
     <main>
-        <div class="game-container">
-            <div class="score-container">
-                <img src="images/o-icon.svg" alt="O icon">
-                <h1>VS.</h1>
-                <img src="images/x-icon.svg" alt="X icon">
+        <div class="game-status">
+            <button class="restart-button card">
+                <img class="restart-image" src="./images/restart-icon.svg" alt="">
+            </button>
+            <div class="game-winner card"><h1>Tic Tac Toe</h1></div>
+        </div>
+        <div class="main-game card">
+            <div class="game-container">
+                <div class="score-container card">
+                    <img src="images/o-icon.svg" alt="O icon">
+                    <h1 id='score-o'>0</h1>
+                    <h1>VS.</h1>
+                    <h1 id="score-x">0</h1>
+                    <img src="images/x-icon.svg" alt="X icon">
+                </div>
+                <div class="start-container">
+                    <button id="start-button" class="card">Start Game</button>
+                </div>
+                <table class="game-table">
+                    <tbody>
+                        <tr>
+                            <td class="pointer"></td>
+                            <td class="pointer"></td>
+                            <td class="pointer"></td>
+                        </tr>
+                        <tr>
+                            <td class="pointer"></td>
+                            <td class="pointer"></td>
+                            <td class="pointer"></td>
+                        </tr>
+                        <tr>
+                            <td class="pointer"></td>
+                            <td class="pointer"></td>
+                            <td class="pointer"></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <div class="start-container">
-                <button id="start-button">Start Game</button>
-            </div>
-            <table class="game-table">
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </table>
         </div>
     </main>
     <script src="js/app.js"></script>
