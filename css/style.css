@@ -14,7 +14,7 @@ body {
     width: 70px;
 }
 
-.game-status {
+.game-status-container {
     padding: 5px;
     display: flex;
     justify-content: space-between;
@@ -24,7 +24,7 @@ body {
     overflow: hidden;
 }
 
-.game-winner{
+.game-status{
     display:flex;
     justify-content: center;
     align-items: center;

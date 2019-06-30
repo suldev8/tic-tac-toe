@@ -6,6 +6,9 @@ const xPath = '../images/x-icon.svg';
 const oPath = '../images/o-icon.svg';
 const restartPath = '../images/restart-icon.svg';
 
+// Define a variable for players turns as bloolean true for X and false for O
+let turn = true;
+
 //
 // Event Listener clallback functions 
 //
@@ -24,6 +27,8 @@ const startGame = function () {
 }/* .apply(startBtn) */;
 
 const restartGame = function () {
+    const gameTableBody = document.querySelector('table.game-table>tbody');
+    gameTableBody.removeEventListener('click', drawInCell);
     clearGameTable();
     const scoreX = document.querySelector('#score-x');
     const scoreO = document.querySelector('#score-o');
@@ -31,67 +36,53 @@ const restartGame = function () {
     scoreO.innerText = 0;
 }
 
-const gameTableListener = function(turn){
+const drawInCell = function (e) {
+    console.log(turn);
 
-    return function drawInCell(e) {
-        // Check the target name if it is a td tag
-        const { tagName, name } = e.target;
-        if (tagName === 'TD' && !name) {
-            drawXO(e.target, turn);
-            e.target.classList.remove('pointer');
-            
-            turn = !turn;
-            console.log('start checking')
-            const state = checkState(this.children);
-            console.log('end checking')
-            console.log('Value of state:', state)
-            if (state !== '') {
-                this.removeEventListener('click', drawInCell);
-                console.log('remove listener')
-                // Add elements for the winner and tie
-                if (state === 'tie') {
-                    console.log('it is tie');
-                }
-                else {
-                    const winnerScore = document.querySelector(`#score-${state}`);
-                    winnerScore.innerText = Number(winnerScore.innerText) + 1;
-                    const gameWinner = document.querySelector('div.game-winner');
-                    const winnerHeading = document.querySelector('div.game-winner > h1');
-                    winnerHeading.innerText = `The winner is ${state.toUpperCase()}`;
-                }
-
-                turn = true;
-                // clear table after 3 seconds
-                setTimeout(clearGameTable, 3000);
-                return;
+    const statusHeading = document.querySelector('div.game-status > h1');
+    // Check the target name if it is a td tag
+    const { tagName, name } = e.target;
+    if (tagName === 'TD' && !name) {
+        drawXO(e.target, turn);
+        e.target.classList.remove('pointer');
+        turn = !turn;
+        writeHeading();
+        const state = checkState(this.children);
+        if (state !== '') {
+            this.removeEventListener('click', drawInCell);
+            // Add elements for the winner and tie
+            if (state === 'tie') {
+                statusHeading.innerText = 'It\'s tie';
             }
+            else {
+                const winnerScore = document.querySelector(`#score-${state}`);
+                winnerScore.innerText = Number(winnerScore.innerText) + 1;
+                statusHeading.innerText = `The winner is ${state.toUpperCase()}`;
+            }
+
+            turn = true;
+            // clear table after 3 seconds
+            setTimeout(clearGameTable, 3000);
+            return;
         }
     }
 }
 
 
 const playGame = function () {
-    // Define a variable for players turns as bloolean true for X and false for O
-    let turn = true;
+
     // Create a restart button and preppend to the main
     const restartBtn = document.querySelector('button.restart-button');
-    const restartIcon = document.querySelector('button.restart-button>img');
-    restartIcon.src = restartPath;
-    restartIcon.classList.add('restart-image');
 
-    restartBtn.classList.add('restart-button');
-    restartBtn.classList.add('card');
-    restartBtn.appendChild(restartIcon);
     restartBtn.style.backgroundColor = '#f59b42';
     restartBtn.style.cursor = 'pointer';
     restartBtn.addEventListener('click', restartGame);
 
-    const gameStatus = document.querySelector('div.game-status');
-    gameStatus.prepend(restartBtn);
+    writeHeading();
 
     // Select table body and add click event listener
     const gameTableBody = document.querySelector('table.game-table > tbody');
-    gameTableBody.addEventListener('click', gameTableListener(turn));
+    gameTableBody.addEventListener('click', drawInCell);
 }
 
 // Select start button and add click event listner
@@ -99,7 +90,7 @@ const startBtn = document.querySelector('#start-button');
 startBtn.addEventListener('click', startGame);
 
 
-const hideStatus = function(status){
+const hideStatus = function (status) {
     status.style.top = 0;
 }
 
@@ -114,7 +105,7 @@ const checkState = function (tableRows) {
     // Declare ariable that counts full rows and colums to check the game if it is tie
     let colRowCounter = 0;
 
-    // check the cross state
+    // Check the cross state
     const topLeft = tableRows[0].children[0].name;
     const middle = tableRows[1].children[1].name;
     const bottomRight = tableRows[2].children[2].name;
@@ -179,6 +170,12 @@ const clearGameTable = function () {
             }
         }
     }
-    gameTableBody.addEventListener('click', gameTableListener(true));
+    turn = true;
+    writeHeading();
+    gameTableBody.addEventListener('click', drawInCell);
 }
 
+const writeHeading = function(){
+    const statusHeading = document.querySelector('div.game-status > h1');
+    statusHeading.innerText = `${(turn ? 'X' : 'O').toUpperCase()} turn`;
+}
