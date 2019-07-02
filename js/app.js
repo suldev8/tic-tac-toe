@@ -2,9 +2,9 @@
 'use strict'
 
 // Declare img sources constants
-const xPath = 'tic-tac-toe/images/x-icon.svg';
-const oPath = 'tic-tac-toe/images/o-icon.svg';
-const restartPath = 'tic-tac-toe/images/restart-icon.svg';
+const xPath = 'images/x-icon.svg';
+const oPath = 'images/o-icon.svg';
+const restartPath = 'images/restart-icon.svg';
 
 // Define a variable for players turns as bloolean true for X and false for O
 let turn = true;
