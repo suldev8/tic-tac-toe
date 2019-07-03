@@ -24,7 +24,8 @@ const startGame = function () {
     gameTable.style.filter = 'none';
     playGame();
     this.removeEventListener('click', startGame);
-}/* .apply(startBtn) */;
+};
+
 
 const restartGame = function () {
     const gameTableBody = document.querySelector('table.game-table>tbody');
@@ -37,8 +38,6 @@ const restartGame = function () {
 }
 
 const drawInCell = function (e) {
-    console.log(turn);
-
     const statusHeading = document.querySelector('div.game-status > h1');
     // Check the target name if it is a td tag
     const { tagName, name } = e.target;
@@ -175,7 +174,7 @@ const clearGameTable = function () {
     gameTableBody.addEventListener('click', drawInCell);
 }
 
-const writeHeading = function(){
+const writeHeading = function () {
     const statusHeading = document.querySelector('div.game-status > h1');
     statusHeading.innerText = `${(turn ? 'X' : 'O').toUpperCase()} turn`;
 }
