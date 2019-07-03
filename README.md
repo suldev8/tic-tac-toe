@@ -4,7 +4,7 @@ Tic Tac Toe is a web app game built using HTML, CSS and Vanilla JavaScript.
 
 ## Run
 
-You can play the game by clicking [here](https://github.com/suldev8/tic-tac-toe)
+You can play the game by clicking [here](https://suldev8.github.io/tic-tac-toe/)
 
 ## Usage
 
